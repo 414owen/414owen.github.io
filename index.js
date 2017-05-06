@@ -182,9 +182,7 @@ window.onload = function() {
 				}, 
 				style.disperse
 			)(
-				navItems.filter(function(nav) {
-					return nav !== current;
-				}).map(function(nav) {
+				navItems.map(function(nav) {
 					var to = nav.toLowerCase().replace(' ', '-');
 					var src = imageBase + rev('arrow' + (invert ? '-invert' : '')) + ".svg";
 					var ret = link(to === 'home'? '' : to)
