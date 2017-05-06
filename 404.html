@@ -1,0 +1,98 @@
+<!--
+
+	You're looking at the source.
+	Thanks for showing an interest :)
+
+	- Owen
+
+-->
+
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style>
+		body {
+			width: 100%;
+			height: 100%;
+			border: 0;
+			margin: 0;
+			padding: 0;
+			background-color: #eee;
+		}
+	</style>
+</head>
+<body>
+	<h1>
+		Page Not Found :(
+	</h1>
+	<script>
+		var bod = document.body;
+		while (document.body.firstChild) {
+		    document.body.removeChild(document.body.firstChild);
+		}
+
+		function div(text) {
+			var res = document.createElement("div");
+			res.innerText = text;
+			return res;
+		}
+
+		function style(el) {
+			for (var i = 0; i < arguments.length; i++) {
+				for (var s in arguments[i]) {
+					el.style[s] = arguments[i][s];
+				}
+			}
+		}
+
+		var first = true;
+		var ss = {
+			display: "inline-block",
+			fontSize: "50px",
+			textAlign: "center",
+			position: "absolute",
+		}
+
+		function rep(str, n) {
+			var res = "";
+			for (var i = 0; i < n; i++) {
+				res += str;
+			}
+			return res;
+		}
+
+		function chi(el, ch) {
+			el.appendChild(ch);
+		}
+
+		function first_el(el) {
+			first = false;
+			var nel = div("");
+			chi(nel, div(rep(" ↓ ", 4)));
+			chi(nel, el);
+			chi(nel, div(rep(" ↑ ", 4)));
+			return nel;
+		}
+
+		function makeDiv() {
+			var el = div("Page Not Found");
+			el.innerText = "Page Not Found";
+			if (first) { el = first_el(el); }
+			style(el, ss, { fontSize: (2 + Math.random() * 2).toFixed() + "rem", });
+			chi(bod, el);
+			var width = el.offsetWidth;
+			var height = el.offsetHeight;
+			var posx = (Math.random() * (bod.clientWidth - width)).toFixed();
+			var posy = (Math.random() * (bod.clientHeight - height)).toFixed();
+			style(el, { 
+				left: posx + "px", 
+				top: posy + "px"
+			});
+			el.onmouseover = makeDiv;
+		}
+
+		makeDiv();
+	</script>
+	</body>
+</html>
