@@ -1,5 +1,5 @@
 (function(undefined) {
-	
+
 	var N = Nutmeg;
 	eval(N.localScope);
 
@@ -14,12 +14,8 @@
 
 		// Apply modifiers
 		modifiers.forEach(function(m) {
-
-			// Set default
-			options[m[0]] = m[1];
-
-			// Enable mutation
-			res[m[0]] = function(a) {
+			options[m[0]] = m[1];     // Set default
+			res[m[0]] = function(a) { // Set modifier
 				options[m[0]] = a;
 				return res;
 			}
@@ -29,11 +25,11 @@
 		res.render = function(segments, ind, container) {
 			if ((path || '') === segments[ind]) {
 				if (ind + 1 === segments.length) {
-					container.clear()(options.view());
+					options.transition(container, options.view);
 					return true;
 				} else {
 					for (var i = 0; i < subs.length; i++) {
-						if (subs[i].render(segments, ind + 1, base)) {
+						if (subs[i].render(segments, ind + 1, container)) {
 							return true;
 						}
 					}
@@ -53,29 +49,30 @@
 		into: body
 	};
 
-	function evalLoc() {
+	function currentPath() {
 		var loc = window.location.href;
 		if (options.hash) loc = loc.split("#")[1] || '/';
 		else loc = loc.slice(options.base.length);
-		N.go(loc);
+		if (loc.length === 1) loc = "";
+		loc = loc.split("/");
+		while (loc.length > 1 && loc[0] === "") loc = loc.slice(1);
+		return loc;
 	}
 
-	function opts(o) {
-		for (var key in o) {
-			options[key] = o[key];
+	N.router = function(opts) {
+		for (var key in opts) {
+			options[key] = opts[key];
 		}
-	}
-
-	N.router = function() {
-		opts(arguments[0]);
-		subs = [].slice.call(arguments).slice(1);
-		evalLoc();
+		return function() {
+			subs = [].slice.call(arguments);
+			N.go(currentPath());
+		}
 	};
 
 	N.go = function(path) {
-		var split = path.split("/").slice(1);
+		console.log(path);
 		for (var i = 0; i < subs.length; i++) {
-			if (subs[i].render(split, 0, options.into)) {
+			if (subs[i].render(path, 0, options.into)) {
 				break;
 			}
 		}
@@ -83,12 +80,14 @@
 
 	N.link = function(to) {
 		return div.onclick(function() {
-			N.go(to);
+			console.log(options.hash);
+			window.history.pushState({}, "", (options.hash ? "#/" : options.base) + to);
+			N.go(currentPath());
 		});
 	}
 
 	var modifiers = [
-		["transition", function(o, n) {o.clear()(n);}],
+		["transition", function(c, n) {c.clear()(n());}],
 		["view", function() {return div.id("No view set :(");}]
 	];
 
