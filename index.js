@@ -18,20 +18,23 @@ window.onload = function() {
 			depends: ["base"],
 			fontSize: "3rem"
 		},
-		base: {
-			border: "0",
+		cols: {
 			color: foreground,
 			backgroundColor: background,
+		},
+		inverted: {
+			color: background,
+			backgroundColor: foreground
+		},
+		base: {
+			depends: ["cols"],
+			border: "0",
 			margin: "0",
 			padding: "0",
 			fontFamily: "Raleway",
 			fontWeight: "300",
 			lineHeight: "1.15",
 			display: "block",
-		},
-		inverted: {
-			color: background,
-			backgroundColor: foreground
 		},
 		icon: {
 			depends: ["transition"],
@@ -153,10 +156,17 @@ window.onload = function() {
 	var navItems = ["Home", "Projects", "About Me", "Contact"];
 
 	function getNav(current, invert) {
+		var cols = [style.cols, style.inverted];
+		var srcs = [imageBase + rev("arrow") + ".svg", imageBase + rev("arrow-invert") + ".svg"];
+		console.log(cols);
+		if (invert) {
+			cols = cols.reverse();
+			srcs = srcs.reverse();
+		}
 		return div.style(
 			style.bottom, 
 			style.centerHor,
-			(invert ? style.inverted : {})
+			cols[0]
 		)(
 			div.style(
 				{
@@ -167,20 +177,14 @@ window.onload = function() {
 			)(
 				navItems.map(function(nav) {
 					var to = nav.toLowerCase().replace(" ", "-");
-					var src = imageBase + rev("arrow" + (invert ? "-invert" : "")) + ".svg";
 					var ret = link(to === "home"? "" : to)
-						.style(style.navEl)(
+						.style(style.navEl, (nav === current ? cols[1] : cols[0]))(
 							nav,
-							img.src(src).style(
+							img.src((nav === current ? srcs[1] : srcs[0])).style(
 								style.lower, 
 								{height: "1.5rem"}
 							)
 						);
-					if (invert) {
-						ret.style({
-							color: background, backgroundColor: foreground
-						});
-					}
 					return ret;
 				})
 			)
