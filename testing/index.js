@@ -324,7 +324,7 @@ window.onload = function() {
 				div.style(style.centerHor)
 				("I study at\xa0", a.style(style.link).href("https://www.tcd.ie/")("Trinity College Dublin")),
 				div("I have\xa0", linkStyled("projects")("neat side projects")).style(style.centerHor),
-				hellodiv("You can\xa0", linkStyled("contact")("contact me")).style(style.centerHor)
+				div("You can\xa0", linkStyled("contact")("contact me")).style(style.centerHor)
 			])
 		), "About Me");
 	}
