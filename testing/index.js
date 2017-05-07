@@ -358,7 +358,6 @@ window.onload = function() {
 			sub('').view(div("No name entered")),
 			sub().view(div("Wildcard"))
 		),
-		sub('').view(main),
-		sub().view(h1("No page found :("))
+		sub().view(main)
 	).run();
 }
