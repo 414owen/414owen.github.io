@@ -1,165 +1,148 @@
 window.onload = function() {
 	eval(Nutmeg.localScope);
 
-	(function(tf, c, m) {
-		t = tf.replace(/\s/, "");
-		var i = t.length;
-		function f() {
-			var e = i === t.length;
-			document.title = e ? tf : t[i];
-			i = e ? 0 : i + 1;
-			window.setTimeout(f, e ? c * m : c);
-		}
-		f();
-	})("Owen Shepherd", 100, 20);
-
-	var foreground = '#000000';
-	var background = '#f7f7f7';
+	var foreground = "#000000";
+	var background = "#f7f7f7";
 	var transitionTime = 0.3;
 	var pageChangeTime = transitionTime * 1000;
 	var projectSize = 8;
 	var imageBase = "images/min/"
 
-	// Reverses a string recursively
-	function rev(a, b) {
-		if (b === undefined) {return rev(a, '');}
-		if (a === '') {return b;}
-		return rev(a.substr(1), a[0] + b);
-	}
+	function rev(a) {return a.split("").reverse().join("");}
 
 	var style = mergeStyle({
 		transition: {
-			transition: 'all ' + transitionTime + 's linear'
+			transition: "all " + transitionTime + "s linear"
 		},
 		heading: {
-			depends: ['base'],
-			fontSize: '3rem'
+			depends: ["base"],
+			fontSize: "3rem"
 		},
 		base: {
-			border: '0',
+			border: "0",
 			color: foreground,
 			backgroundColor: background,
-			margin: '0',
-			padding: '0',
-			fontFamily: 'Raleway',
-			fontWeight: '300',
-			lineHeight: '1.15',
-			display: 'block',
+			margin: "0",
+			padding: "0",
+			fontFamily: "Raleway",
+			fontWeight: "300",
+			lineHeight: "1.15",
+			display: "block",
 		},
 		inverted: {
 			color: background,
 			backgroundColor: foreground
 		},
 		icon: {
-			depends: ['transition'],
-			width: '60%',
-			height: '60%',
+			depends: ["transition"],
+			width: "60%",
+			height: "60%",
 			hover: {
-				transform: 'scale(1.3, 1.3)'
+				transform: "scale(1.3, 1.3)"
 			}
 		},
 		iconBox: {
-			depends: ['transition', 'pointer', 'center'],
-			width: '3.3rem',
-			height: '3.3rem',
-			padding: '0.2rem',
+			depends: ["transition", "pointer", "center"],
+			width: "3.3rem",
+			height: "3.3rem",
+			padding: "0.2rem",
 			hover: {
-				filter: 'invert(100%)',
-				backgroundColor: '#fff'
+				filter: "invert(100%)",
+				backgroundColor: "#fff"
 			}
 		},
 		body: {
-			depends: ['base', 'fill', 'abs'],
+			depends: ["base", "fill", "abs"],
 			backgroundColor: background
 		},
 		fill: {
-			width: '100%',
-			height: '100%'
+			width: "100%",
+			height: "100%"
 		},
 		flex: {
-			display: 'flex',
-			flexDirection: 'row'
+			display: "flex",
+			flexDirection: "row"
 		},
 		centerHor: {
-			depends: ['flex'],
-			width: '100%',
-			justifyContent: 'center',
-			textAlign: 'center',
-			flexWrap: 'wrap'
+			depends: ["flex"],
+			width: "100%",
+			justifyContent: "center",
+			textAlign: "center",
+			flexWrap: "wrap"
 		},
 		column: {
-			depends: ['flex'],
-			flexDirection: 'column'
+			depends: ["flex"],
+			flexDirection: "column"
 		},
 		center: {
-			depends: ['centerHor'],
-			width: '100%',
-			alignItems: 'center'
+			depends: ["centerHor"],
+			width: "100%",
+			alignItems: "center"
 		},
 		disperse: {
-			depends: ['centerHor'],
-			justifyContent: 'space-around'
+			depends: ["centerHor"],
+			justifyContent: "space-around"
 		},
 		inline: {
-			depends: ['base'],
-			display: 'inline-block'
+			depends: ["base"],
+			display: "inline-block"
 		},
 		hline: {
-			depends: ['lower'],
-			borderTop: '1px solid'
+			depends: ["lower"],
+			borderTop: "1px solid"
 		},
 		lower: {
-			marginTop: '0.5rem'
+			marginTop: "0.5rem"
 		},
 		pointer: {
-			cursor: 'pointer'
+			cursor: "pointer"
 		},
 		bottom: {
-			depends: ['base'],
-			bottom: '0',
-			position: 'fixed'
+			depends: ["base"],
+			bottom: "0",
+			position: "fixed"
 		},
 		bordered: {
-			border: '1px solid'
+			border: "1px solid"
 		},
 		spaced: {
-			margin: '1rem'
+			margin: "1rem"
 		},
 		projbox: {
-			depends: ['spaced', 'transition'],
-			padding: '1rem',
-			border: '1px solid rgba(0,0,0,0)',
+			depends: ["spaced", "transition"],
+			padding: "1rem",
+			border: "1px solid rgba(0,0,0,0)",
 			hover: {
 				borderColor: foreground,
-				borderRadius: '1rem',
+				borderRadius: "1rem",
 			}
 		},
 		abs: {
-			position: 'absolute'
+			position: "absolute"
 		},
 		projimgbox: {
-			height: projectSize + 'rem',
-			width: projectSize + 'rem',
+			height: projectSize + "rem",
+			width: projectSize + "rem",
 		},
 		projimg: {
-			width:'100%',
+			width:"100%",
 		},
 		transparent: {
-			depends: ['base', 'transition'],
-			color: 'rgba(0,0,0,0)'
+			depends: ["base", "transition"],
+			color: "rgba(0,0,0,0)"
 		},
 		navEl: {
-			depends: ['base', 'column', 'pointer'],
+			depends: ["base", "column", "pointer"],
 			width: "10rem"
 		},
 		link: {
-			depends: ['base', 'pointer'],
-			fontWeight: 'bold',
-			textDecoration: 'none'
+			depends: ["base", "pointer"],
+			fontWeight: "bold",
+			textDecoration: "none"
 		},
 		med: {
-			depends: ['base'],
-			fontSize: '1.3rem'
+			depends: ["base"],
+			fontSize: "1.3rem"
 		}
 	});
 
@@ -167,35 +150,37 @@ window.onload = function() {
 		return link(place).style(style.link)
 	}
 
-	var navItems = ['Home', 'Projects', 'About Me', 'Contact'];
+	var navItems = ["Home", "Projects", "About Me", "Contact"];
 
 	function getNav(current, invert) {
 		return div.style(
 			style.bottom, 
 			style.centerHor,
-			invert? style.inverted:{}
+			(invert ? style.inverted : {})
 		)(
 			div.style(
 				{
-					maxWidth: '30rem', 
-					fontSize: '1.3rem'
+					maxWidth: "50rem", 
+					fontSize: "1.3rem"
 				}, 
 				style.disperse
 			)(
 				navItems.map(function(nav) {
-					var to = nav.toLowerCase().replace(' ', '-');
-					var src = imageBase + rev('arrow' + (invert ? '-invert' : '')) + ".svg";
-					var ret = link(to === 'home'? '' : to)
+					var to = nav.toLowerCase().replace(" ", "-");
+					var src = imageBase + rev("arrow" + (invert ? "-invert" : "")) + ".svg";
+					var ret = link(to === "home"? "" : to)
 						.style(style.navEl)(
 							nav,
-							img.src(src) .style(
+							img.src(src).style(
 								style.lower, 
-								{height: '1.5rem'}
+								{height: "1.5rem"}
 							)
 						);
-					if (invert) {ret.style({
-						color: background, backgroundColor: foreground
-					});}
+					if (invert) {
+						ret.style({
+							color: background, backgroundColor: foreground
+						});
+					}
 					return ret;
 				})
 			)
@@ -213,31 +198,31 @@ window.onload = function() {
 	}
 
 	var mainButtons = [
-		['github', 'l', 'https://github.com/414owen'],
-		['linkedin', 'l', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
-		['cv', 'l', 'https://owen.cafe/cv.pdf'],
-		['envelope','p', 'contact']
+		["github", "l", "https://github.com/414owen"],
+		["linkedin", "l", "https://www.linkedin.com/in/owen-shepherd-50418b110"],
+		["cv", "l", "https://owen.cafe/cv.pdf"],
+		["envelope","p", "contact"]
 	];
 
 	function main() {
 		return centerPage(div.style(style.column)(
 			div(
-				h1('Owen Shepherd').style(style.heading),
+				link("hello")(h1("Owen Shepherd").style(style.heading)),
 				div.style(style.hline),
 				div.style(style.centerHor)(
 					mainButtons.map(function(button, ind) {
-						var base = button[1] === 'p' ? 
+						var base = button[1] === "p" ? 
 							link(button[2])          : 
 							div.link(button[2]);
 						return base.style(style.iconBox)(
 							img.src(
-								imageBase + rev(button[0]) + '.svg'
+								imageBase + rev(button[0]) + ".svg"
 							).style(style.icon)
 						);
 					})
 				)
 			)
-		), 'Home');
+		), "Home");
 	}
 
 	var projectData = [	
@@ -285,21 +270,21 @@ window.onload = function() {
 	function projects(vars) {
 		return div(
 			div.style({
-				maxWidth: '50rem', 
-				margin: '0 auto'
+				maxWidth: "50rem", 
+				margin: "0 auto"
 			})(
 				projectData.map(function(project) {
 					return div.style(style.projbox).link(project[1])(
-						div.style({display: 'flex'})(
-							div.style({width: '8rem'})(
+						div.style({display: "flex"})(
+							div.style({width: "8rem"})(
 								img.style(style.projimg).src(
-									imageBase + rev(project[0]) + '.svg'
+									imageBase + rev(project[0]) + ".svg"
 								)
 							),
 							div.style(style.center)(
 								div.style({
-									transition: 'color 0.2s linear', 
-									margin: '0rem 2rem'
+									transition: "color 0.2s linear", 
+									margin: "0rem 2rem"
 								})(
 									project[0] + " " + project[2]
 								)
@@ -314,16 +299,12 @@ window.onload = function() {
 				})
 			), 
 			div.style(style.projbox)(div.style(style.projimg)),
-			getNav('Projects', true)
+			getNav("Projects", true)
 		)
 	}
 
 	function spaceLines(lines) {
 		return lines.map(function(t) {return div.style(style.lower)(t);});
-	}
-
-	function spaninate(a) {
-		return span(a);
 	}
 
 	// Literally the height of spam-prevention technology
@@ -334,26 +315,26 @@ window.onload = function() {
 		rev("iam"), 
 		"ll..ccoo".split("").filter(function(s, i) {return i % 2 == 0 ? s : "";}).join(""),
 		"m"
-	].map(spaninate);
+	];
 
 	function me() {
 		return centerPage(div.style(style.column, style.med)(
-			spaceLines(['I am Owen',
-				'I study Computer Science',
+			spaceLines(["I am Owen",
+				"I study Computer Science",
 				div.style(style.centerHor)
-				('I study at\xa0', a.style(style.link).href('https://www.tcd.ie/')('Trinity College Dublin')),
-				div("I have\xa0", linkStyled('projects')('neat side projects')).style(style.centerHor),
-				div('You can\xa0', linkStyled('contact')('contact me')).style(style.centerHor)
+				("I study at\xa0", a.style(style.link).href("https://www.tcd.ie/")("Trinity College Dublin")),
+				div("I have\xa0", linkStyled("projects")("neat side projects")).style(style.centerHor),
+				div("You can\xa0", linkStyled("contact")("contact me")).style(style.centerHor)
 			])
-		), 'About Me');
+		), "About Me");
 	}
 
 	function row(elems) {
-		return elems.map(function(elem) {return td(elem).style({padding: '0.2rem 1rem'});});
+		return elems.map(function(elem) {return td(elem).style({padding: "0.2rem 1rem"});});
 	}
 
 	function mono(el) {
-		return div(el).style({fontFamily: 'Cutive Mono, Monospace'});
+		return div(el).style({fontFamily: "Cutive Mono, Monospace"});
 	}
 
 	function contact() {
@@ -367,14 +348,16 @@ window.onload = function() {
 
 	body.style(style.body);
 
-	function pageChange(container, newPage) {
-		container.clear()(newPage);
-	}
-
-	router(
-		sub('projects').transition(pageChange).view(projects),
-		sub('about-me').transition(pageChange).view(me),
-		sub('contact').transition(pageChange).view(contact),
-		sub().view(main).transition(pageChange)
-	);
+	router({hash: false})(
+		sub("projects").view(projects),
+		sub("about-me").view(me),
+		sub("contact").view(contact),
+		sub("blog").view(div("Blog not implemented yet :(")),
+		sub("hello")(
+			sub(":name").view(function(params) {return "Hello " + params.name;}),
+			sub('').view(div("No name entered")),
+			sub().view(div("Wildcard"))
+		),
+		sub().view(main)
+	).run();
 }
