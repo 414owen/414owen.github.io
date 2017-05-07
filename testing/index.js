@@ -359,6 +359,6 @@ window.onload = function() {
 			sub().view(div("Wildcard"))
 		),
 		sub('').view(main),
-		sub().view("No page found :(")
+		sub().view(div("No page found :("))
 	).run();
 }
