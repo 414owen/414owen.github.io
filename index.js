@@ -352,7 +352,7 @@ window.onload = function() {
 		sub("projects").view(projects),
 		sub("about-me").view(me),
 		sub("contact").view(contact),
-		sub("blog").view(div("Blog not implemented yet :(")),
+		sub("blog").view(h1("Blog not implemented yet :(")),
 		sub("hello")(
 			sub(":name").view(function(params) {return "Hello " + params.name;}),
 			sub('').view(div("No name entered")),
