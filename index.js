@@ -134,7 +134,7 @@ window.onload = function() {
 		},
 		navEl: {
 			depends: ["base", "column", "pointer"],
-			width: "10rem"
+			width: "8rem"
 		},
 		link: {
 			depends: ["base", "pointer"],
@@ -173,7 +173,7 @@ window.onload = function() {
 		)(
 			div.style(
 				{
-					maxWidth: "50rem", 
+					maxWidth: "40rem", 
 					fontSize: "1.3rem"
 				}, 
 				style.disperse
