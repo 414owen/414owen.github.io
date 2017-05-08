@@ -438,7 +438,7 @@ window.onload = function() {
 						"	return wrapper;",
 						"}"
 					),
-					"As you can see, this function is called F9, and yes, there are similar functions labelled F2-F8, with less inner functions. The purpose of this thing is to curry a function with arity nine (arity is the amount of parameters a function takes). Alright, they've defined a function for every arity up to nine (maybe it would generate more if you wrote a function that takes more? Don't know, didn't check. I think that at the very least we can make a single function that curries however many parameters you want.",
+					"As you can see, this function is called F9, and yes, there are similar functions labelled F2-F8, with less inner functions. The purpose of this thing is to curry a function with arity nine (arity is the amount of parameters a function takes). Alright, they've defined a function for every arity up to nine (maybe it would generate more if you wrote a function that takes more? Don't know, didn't check), I think that at the very least we can make a single function that curries however many parameters you want.",
 					h[1],
 					"We'll need a good understanding of these things:",
 					ul([
