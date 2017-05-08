@@ -6,9 +6,7 @@ window.onload = function() {
 	var transitionTime = 0.3;
 	var pageChangeTime = transitionTime * 1000;
 	var projectSize = 8;
-	var imageBase = "/images/min/"
-
-	function rev(a) {return a.split("").reverse().join("");}
+	var imageBase = "/images/min/";
 
 	var style = mergeStyle({
 		transition: {
@@ -157,9 +155,11 @@ window.onload = function() {
 		}
 	});
 
+	function rev(a) {return a.split("").reverse().join("");}
 	function ldash(text) {
 		return text.toLowerCase().replace(/\s/g, "-");
 	}
+	function im(a) {return rev(ldash(a)).toLowerCase();}
 
 	var navItems = ["Home", "Projects", "Blog", "About Me", "Contact"];
 
@@ -284,7 +284,7 @@ window.onload = function() {
 							div.style({display: "flex"})(
 								div.style({width: "8rem"})(
 									img.style(style.projimg).src(
-										imageBase + rev(item.icon) + ".svg"
+										imageBase + im(item.icon) + ".svg"
 									)
 								),
 								div.style(style.center)(
@@ -403,6 +403,7 @@ window.onload = function() {
 		[
 			"Currying in Javascript",
 			"Implementing an abstraction every language should have",
+			"Javascript",
 			function() {
 				var toc = ul();
 				var h = [
@@ -572,7 +573,7 @@ window.onload = function() {
 				title: b[0],
 				description: b[1],
 				link: "blog/" + i + "/" + ldash(b[0]),
-				icon: ""
+				icon: ldash(b[2])
 			};
 		}), false, true, "Blog");
 	}
@@ -586,14 +587,14 @@ window.onload = function() {
 			})(
 				h1(entry[0]),
 				h2(entry[1]),
-				entry[2]()
+				entry[3]()
 			),
 			div.style({height: "5rem"}),
 			getNav("Blog")
 		];
 	}
 
-	router({hash: true})(
+	router({hash: false})(
 		sub("projects").view(projects),
 		sub("about-me").view(me),
 		sub("contact").view(contact),
