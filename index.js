@@ -480,7 +480,7 @@ window.onload = function() {
 					h[3],
 					"Our goal today is to get the syntax of currying down as close as possible to that of the unnamed functional language above, within the limits of es5, with as small a function as possible, hopefully capable of currying functions of any arity. We'll aim to get down to something like this:",
 					code(
-						"var add = curry(add(a, b) {return a + b;})",
+						"var add = curry(function(a, b) {return a + b;})",
 						"var addOne = add(1);",
 						"var addTwo = add(2);"
 					),
