@@ -504,7 +504,7 @@ window.onload = function() {
 						"is a nice little trick to convert a functions' arguments into an array, by fooling an array literal's ", mono(".slice()"), " function into thinking ",
 						mono("arguments"),
 						" is already an array. ",
-						"There is, however, a gaping floor in this plan, I'll give you an example of it failing and you can try to figure it out."
+						"There is, however, a flaw in this plan, I'll give you an example of it failing and you can try to figure it out."
 					),
 					code(
 						"var add = curry(2, function(a, b) {return a + b;});",
@@ -583,7 +583,7 @@ window.onload = function() {
 		return [
 			div.style(style.centerDown, {
 				borderLeft: "5px solid black",
-				paddingLeft: "20px"
+				padding: "0 20px"
 			})(
 				h1(entry[0]),
 				h2(entry[1]),
