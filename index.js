@@ -407,9 +407,11 @@ window.onload = function() {
 				h1(entry[0]),
 				h2(entry[1]),
 				(function() {
+					if (entry[3]) {return div(entry[3]);}
 					var page = div(h3("Loading..."));
 					function reqListener () {
-						page.clear()(Nutmeg.md(this.responseText, {pre: code}));
+						entry[3] = Nutmeg.md(this.responseText, {pre: code});
+						page.clear()(entry[3]);
 					}
 					var oReq = new XMLHttpRequest();
 					oReq.addEventListener("load", reqListener);
