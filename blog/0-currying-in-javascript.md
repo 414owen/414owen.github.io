@@ -83,7 +83,7 @@ The above is achieved in Elm by having very nested functions such as F9.
 
 ### Initial Attempt
 
-Okay, my first thought was to encapsulate an array, then use apply() to turn
+Okay, my first thought was to encapsulate an array, then use `apply()` to turn
 that array into parameters. This looked something like this:
 
 ```
@@ -114,8 +114,9 @@ addTwo(7); // error, this is not a function
 ```
 
 Woops! When you curry one parameter, you curry it for every subsequent call.
-addOne was correct, however addTwo was just the value three. Maybe we can pass
-the next parameters in by binding them...
+addOne was correct, however addTwo was just the value three, so we were trying
+to call three as a function. Maybe we can pass the accumulated parameters in by
+binding them...
 
 ```
 function curry(arity, func) {
@@ -143,11 +144,13 @@ var addOne = c(2)(add);
 
 That does what we want, however I think we can get the code size down a bit,
 also, I don't like that arity parameter. I shopped around a bit, and found out
-that functions have a `.length` parameter, which just tells you the arity.
-Hooray! The curry currying itself trick will be missed, though. Okay, as to
-the binding, reducing the function to bind one at a time is, unnecessary, as
-`.bind()` accepts multiple parameters anyway. We can apply everything to the
-`.bind()` at once, methinks.  Final Version
+that functions have a `.length` property, which just tells you the arity.
+Hooray! The curry currying itself trick will be missed, though. Okay, as to the
+binding, reducing the function to bind one parameter at a time is, unnecessary,
+as `.bind()` accepts multiple parameters anyway. We can apply everything to the
+`.bind()` at once, methinks.  
+
+### Final Version
 
 ```
 function curry(func) {
@@ -182,6 +185,6 @@ add(1, 2, 3);         // 6
 
 Right on! We're done, and it's amazing. We should probably give this a
 fancy-ass name, how about 'hybrid currying'? That sounds like a thing that
-vaguely describes what this can do, what with the different syntaxes and all.
+vaguely describes what we've done, what with the different syntaxes and all.
 I've put this on GitHub, [here](https://github.com/414owen/js-hybrid-currying).
 Feel free to make a pull request or whatnot :)
