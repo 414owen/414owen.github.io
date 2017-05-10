@@ -187,10 +187,6 @@ var Nutmeg = (function() {
 		["append", function() {
 			appendChildren(this.val, arguments);
 		}],
-		["link", function(url) {
-			this.style({cursor: 'pointer'});
-			this.onclick(function() {window.location = url;});
-		}],
 		["style", function() {
 			processStyles(this, arguments);
 		}],

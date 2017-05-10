@@ -137,7 +137,7 @@ window.onload = function() {
 			width: "8rem"
 		},
 		link: {
-			depends: ["base", "pointer"],
+			depends: ["base", "pointer", "cols"],
 			fontWeight: "bold",
 			textDecoration: "none"
 		},
@@ -154,6 +154,14 @@ window.onload = function() {
 			margin: "0 auto"
 		}
 	});
+
+	var oldLink = link;
+	var link = function(to) {
+		return oldLink(to).style(style.link);
+	};
+	var linku = function(to) {
+		return link(to).style(style.linku);
+	};
 
 	function rev(a) {return a.split("").reverse().join("");}
 	function im(a) {return rev(Common.ldash(a)).toLowerCase();}
@@ -216,7 +224,7 @@ window.onload = function() {
 					mainButtons.map(function(button, ind) {
 						var base = button[1] === "p" ? 
 							link(button[2])          : 
-							div.link(button[2]);
+							a.href(button[2]);
 						return base.style(style.iconBox)(
 							img.src(
 								imageBase + rev(button[0]) + ".svg"
@@ -272,33 +280,34 @@ window.onload = function() {
 	];
 
 	function listPage(list, links, dates, pageName) {
+		var lstyle = [style.link, {fontWeight: "normal"}];
 		return div(
 			div.style(style.centerDown)(
 				list.map(function(item) {
-					return (links ? div.link(item.link) : link(item.link))
-						.style(style.projbox)(
-							div.style({display: "flex"})(
-								div.style({width: "8rem"})(
-									img.style(style.projimg).src(
-										imageBase + im(item.icon) + ".svg"
-									)
-								),
-								div.style(style.center)(
-									div.style({
-										transition: "color 0.2s linear", 
-										margin: "0rem 2rem"
-									})(
-										item.description
-									)
+					var base = div.style(style.projbox)(
+						div.style({display: "flex"})(
+							div.style({width: "8rem"})(
+								img.style(style.projimg).src(
+									imageBase + im(item.icon) + ".svg"
 								)
 							),
-							div.style(style.hline),
-							div(item.title).style(
-								style.centerHor, 
-								style.lower,
-								{fontWeight: "bold"}
+							div.style(style.center)(
+								div.style({
+									transition: "color 0.2s linear", 
+									margin: "0rem 2rem"
+								})(
+									item.description
+								)
 							)
+						),
+						div.style(style.hline),
+						div(item.title).style(
+							style.centerHor, 
+							style.lower,
+							{fontWeight: "bold"}
 						)
+					);
+					return div((links ? a.href(item.link)(base) : link(item.link)(base)).style(lstyle));
 				})
 			), 
 			div.style({height: "5rem"}),
