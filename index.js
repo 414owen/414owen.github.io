@@ -417,7 +417,7 @@ window.onload = function() {
 					oReq.send();
 					return page;
 				})(),
-				div.style({height: "5rem"}),
+				div.style({height: "5rem"})
 			),
 			getNav("Blog")
 		];
