@@ -156,11 +156,7 @@ window.onload = function() {
 	});
 
 	function rev(a) {return a.split("").reverse().join("");}
-	function ldash(text) {
-		return text.toLowerCase().replace(/\s/g, "-");
-	}
-	function im(a) {return rev(ldash(a)).toLowerCase();}
-
+	function im(a) {return rev(Common.ldash(a)).toLowerCase();}
 	var navItems = ["Home", "Projects", "Blog", "About Me", "Contact"];
 
 	function getNav(current) {
@@ -179,7 +175,7 @@ window.onload = function() {
 				style.disperse
 			)(
 				navItems.map(function(nav) {
-					var to = ldash(nav);
+					var to = Common.ldash(nav);
 					var ret = link(to === "home"? "" : to)
 						.style(style.navEl, (nav === current ? cols[1] : cols[0]))(
 							nav,
@@ -381,189 +377,12 @@ window.onload = function() {
 		)
 	}
 
-	function splink(to, text) {
-		return a.href(to)(text).style({textDecoration: "underline"})
-	}
-
-	function mono(text) {
-		return span.style({fontFamily: "monospace"})(text);
-	}
-
-	function findPos(obj) {
-		var curtop = 0;
-		if (obj.offsetParent) {
-			do {
-				curtop += obj.offsetTop;
-			} while (obj = obj.offsetParent);
-			return [curtop];
-		}
-	}
 
 	var blogEntries = [
 		[
 			"Currying in Javascript",
 			"Implementing an abstraction every language should have",
-			"Javascript",
-			function() {
-				var toc = ul();
-				var h = [
-					"Inspiration",
-					"Prerequisites",
-					"Background",
-					"Objective",
-					"Initial Attempt",
-					"Final Version"
-				].map(function(h) {
-					var res = h3(h);
-					toc(
-						li(div(h).style(style.linku))
-						.onclick(function() {window.scroll(0,findPos(res.val));})
-					);
-					return res;
-				});
-				return div.style({fontSize: "1rem"})([
-					h3("Table of Contents"),
-					toc,
-					h[0],
-					div("A month or so ago, I was writing a little ", splink("http://elm-lang.org/", "Elm"), " project to allow lots of people to draw on a website at the same time, in a way that their drawings interfered with each other and annoyed everyone. Taking a look at the generated code, I saw this:"),
-					code(
-						"function F9(fun) {",
-						"	function wrapper(a) { return function(b) { return function(c) {",
-						"		return function(d) { return function(e) { return function(f) {",
-						"			return function(g) { return function(h) { return function(i) {",
-						"				return fun(a, b, c, d, e, f, g, h, i); }; }; }; }; }; }; }; };",
-						"	}",
-						"	wrapper.arity = 9;",
-						"	wrapper.func = fun;",
-						"	return wrapper;",
-						"}"
-					),
-					"As you can see, this function is called F9, and yes, there are similar functions labelled F2-F8, with less inner functions. The purpose of this thing is to curry a function with arity nine (arity is the amount of parameters a function takes). Alright, they've defined a function for every arity up to nine (maybe it would generate more if you wrote a function that takes more? Don't know, didn't check), I think that at the very least we can make a single function that curries however many parameters you want.",
-					h[1],
-					"We'll need a good understanding of these things:",
-					ul([
-						a("Function.prototype.apply()")
-						.href("https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply"),
-						a("Function.prototype.bind()")
-						.href("https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind"),
-						a("Array.prototype.reduce()")
-						.href("https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"),
-						a("Array.prototype.concat()")
-						.href("https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"),
-						a("Arguments object")
-						.href("https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/arguments"),
-						a("Array.prototype.slice()")
-						.href("https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"),
-						a("Function.prototype.call()")
-						.href("https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call"),
-						a("Lexical scoping")
-						.href("https://developer.mozilla.org/en/docs/Web/JavaScript/Closures#Lexical_scoping")
-					].map(function(e) {return li(e.style(style.linku));})),
-					h[2],
-					"Okay, currying, if you're familiar with a functional language, you might recognize this kind of code:",
-					code(
-						"add a b = a + b",
-						"addOne = add 1",
-						"addTwo = add 2",
-						"addOne 5             // 6",
-						"addTwo 5             // 7"
-					),
-					"Let's take a look at what that looks like in javascript:",
-					code(
-						"function add(a, b) {return a + b;}",
-						"var addOne = add.bind(null, 1);",
-						"var addTwo = add.bind(null, 2);",
-						"addOne(5)            // 6",
-						"addTwo(5)            // 7"
-					),
-					"Huh, well that's quite doable, but not very ergonomic, let's see what we can do",
-					h[3],
-					"Our goal today is to get the syntax of currying down as close as possible to that of the unnamed functional language above, within the limits of es5, with as small a function as possible, hopefully capable of currying functions of any arity. We'll aim to get down to something like this:",
-					code(
-						"var add = curry(function(a, b) {return a + b;})",
-						"var addOne = add(1);",
-						"var addTwo = add(2);"
-					),
-					"The above is achieved in Elm by having very nested functions such as F9.",
-					h[4],
-					"Okay, my first thought was to encapsulate an array, then use apply() to turn that array into parameters. This looked something like this:",
-					code(
-						"function curry(arity, func) {",
-						"	var params = [];",
-						"	function more() {",
-						"		params = params.concat([].slice.call(arguments));",
-						"		if (arity === params.length) {return func.apply(null, params);}",
-						"		return more;",
-						"	}",
-						"	return more;",
-						"}"
-					),
-					div(
-						"Okay, here, we're using javascript's scoping rules to encapsulate an array of parameters.",
-						mono(" [].slice.call(arguments) "), 
-						"is a nice little trick to convert a functions' arguments into an array, by fooling an array literal's ", mono(".slice()"), " function into thinking ",
-						mono("arguments"),
-						" is already an array. ",
-						"There is, however, a flaw in this plan, I'll give you an example of it failing and you can try to figure it out."
-					),
-					code(
-						"var add = curry(2, function(a, b) {return a + b;});",
-						"var addOne = add(1);",
-						"var addTwo = add(2);",
-						"addOne(5); // 6",
-						"addTwo(7); // error, this is not a function"
-					),
-					"Woops! When you curry one parameter, you curry it for every subsequent call. addOne was correct, however addTwo was just the value three. Maybe we can pass the next parameters in by binding them...",
-					code(
-						"function curry(arity, func) {",
-						"	function more() {",
-						"		var params = [].slice.call(arguments);",
-						"		if (params.length === arity)",
-						"			return func.apply(null, params);",
-						"		else return params.reduce(function(acc, val) {",
-						"			return acc.bind(null, val);",
-						"		}, more);",
-						"	}",
-						"	return more;",
-						"}"
-					),
-					"One of the neat things about this version is that, as it curries any function, and it itself takes two parameters, it can curry itself!",
-					code(
-						"// curry curries itself",
-						"var c = curry(2, curry);",
-						"function add(a, b) {return a + b;}",
-						"var addOne = c(2)(add);"
-					),
-					div("That does what we want, however I think we can get the code size down a bit, also, I don't like that arity parameter. I shopped around a bit, and found out that functions have a ", mono(".length"), " parameter, which just tells you the arity. Hooray! The curry currying itself trick will be missed, though."),
-					div("Okay, as to the binding, reducing the function to bind one at a time is, unnecessary, as ", mono(".bind()"), " accepts multiple parameters anyway. We can ", mono("apply"), " everything to the ", mono(".bind()"), " at once, methinks."),
-					h[5],
-					code(
-						"function curry(func) {",
-						"	function more() {",
-						"		var params = [].slice.call(arguments);",
-						"		return ((params.length === func.length) ?",
-						"			func.apply(null, params) :",
-						"			more.bind.apply(more, [null].concat(params)));",
-						"	}",
-						"	return more;",
-						"}"
-					),
-					"Yes! If you understood what's going on up to here, you're a hella-rad meta-programmer. Shall we put this thing through it's paces?",
-					code(
-						"var add = curry(function(a, b, c) {return a + b + c;});",
-						"",
-						"addOne = add(1);",
-						"addOneTwo = addOne(2);",
-						"addOneTwo(3);         // 6",
-						"add(1)(2)(3);         // 6"
-					),
-					"Oh, also, we can still use standard javascript syntax on our curried functions, which is a very nice bonus",
-					code(
-						"add(1, 2, 3);         // 6"
-					),
-					div("Right on! We're done, and it's amazing. We should probably give this a fancy-ass name, how about 'hybrid currying'? That sounds like a thing that vaguely describes what this can do, what with the different syntaxes and all. I've put this on GitHub, ", splink("https://github.com/414owen/js-hybrid-currying", "here"), ".", " Feel free to make a pull request or whatnot :)")
-				].map(function(a) {return div(a).style({marginTop: "2rem"});}))
-			},
+			"Javascript"
 		]
 	];
 
@@ -572,8 +391,8 @@ window.onload = function() {
 			return {
 				title: b[0],
 				description: b[1],
-				link: "blog/" + i + "/" + ldash(b[0]),
-				icon: ldash(b[2])
+				link: "blog/" + i + "/" + Common.ldash(b[0]),
+				icon: Common.ldash(b[2])
 			};
 		}), false, true, "Blog");
 	}
@@ -587,9 +406,19 @@ window.onload = function() {
 			})(
 				h1(entry[0]),
 				h2(entry[1]),
-				entry[3]()
+				(function() {
+					var page = div(h3("Loading..."));
+					function reqListener () {
+						page.clear()(Nutmeg.md(this.responseText, {pre: code}));
+					}
+					var oReq = new XMLHttpRequest();
+					oReq.addEventListener("load", reqListener);
+					oReq.open("GET", "/blog/" + params.id + "-" + Common.ldash(entry[0]) + ".md");
+					oReq.send();
+					return page;
+				})(),
+				div.style({height: "5rem"}),
 			),
-			div.style({height: "5rem"}),
 			getNav("Blog")
 		];
 	}
