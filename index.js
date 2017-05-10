@@ -408,6 +408,7 @@ window.onload = function() {
 
 	function blogPost(params) {
 		var entry = blogEntries[params.id];
+		if (!entry) {return h1("Blog post not found");}
 		return [
 			div.style(style.centerDown, {
 				borderLeft: "5px solid black",
