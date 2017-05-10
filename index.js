@@ -415,7 +415,7 @@ window.onload = function() {
 					}
 					var oReq = new XMLHttpRequest();
 					oReq.addEventListener("load", reqListener);
-					oReq.open("GET", "/blog/" + params.id + "-" + Common.ldash(entry[0]) + ".md");
+					oReq.open("GET", "/blog_entries/" + params.id + "-" + Common.ldash(entry[0]) + ".md");
 					oReq.send();
 					return page;
 				})(),
