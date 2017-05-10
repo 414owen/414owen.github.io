@@ -408,13 +408,12 @@ window.onload = function() {
 
 	function blogPost(params) {
 		var entry = blogEntries[params.id];
-		if (!entry) {return h1("Blog post not found");}
 		return [
 			div.style(style.centerDown, {
 				borderLeft: "5px solid black",
 				padding: "0 20px"
 			})(
-				h1(entry[0]),
+				(entry ? [h1(entry[0]),
 				h2(entry[1]),
 				(function() {
 					if (entry[3]) {return div(entry[3]);}
@@ -429,7 +428,7 @@ window.onload = function() {
 					oReq.send();
 					return page;
 				})(),
-				div.style({height: "5rem"})
+				div.style({height: "5rem"})] : h1("Blog post not found :("))
 			),
 			getNav("Blog")
 		];
