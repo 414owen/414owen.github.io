@@ -6,14 +6,6 @@
  *
  */
 
-// [
-//     {
-//         name: "Hello",
-//         el: element,
-//         children: [etc.]
-//     }
-// ]
-
 (function() {
 	eval(Nutmeg.localScope);
 
