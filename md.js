@@ -13,7 +13,7 @@
 		inPre: function(text) {
 			return span.style({fontFamily: "monospace"})(text);
 		},
-		text: span,
+		text: div,
 		pre: pre,
 		link: link,
 		href: a,

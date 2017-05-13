@@ -389,9 +389,14 @@ window.onload = function() {
 
 	var blogEntries = [
 		[
-			"Currying in Javascript",
+			"Currying in JavaScript",
 			"Implementing an abstraction every language should have",
-			"Javascript"
+			"JavaScript"
+		],
+		[
+			"Native imports in JavaScript",
+			"Using eval to dynamically bind local variables for great convenience gains",
+			"JavaScript"
 		]
 	];
 

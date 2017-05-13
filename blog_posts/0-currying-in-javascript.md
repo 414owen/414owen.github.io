@@ -54,7 +54,7 @@ addOne 5             // 6
 addTwo 5             // 7
 ```
 
-Let's take a look at what that looks like in javascript:
+Let's take a look at what that looks like in JavaScript:
 
 ```
 function add(a, b) {return a + b;}
@@ -98,7 +98,7 @@ function curry(arity, func) {
 }
 ```
 
-Okay, here, we're using javascript's scoping rules to encapsulate an array of
+Okay, here, we're using JavaScript's scoping rules to encapsulate an array of
 parameters. `[].slice.call(arguments)` is a nice little trick to convert a
 functions' arguments into an array, by fooling an array literal's `.slice()`
 function into thinking arguments is already an array. There is, however, a flaw
@@ -175,7 +175,7 @@ addOneTwo(3);         // 6
 add(1)(2)(3);         // 6
 ```
 
-Oh, also, we can still use standard javascript syntax on our curried functions,
+Oh, also, we can still use standard JavaScript syntax on our curried functions,
 which is a very nice bonus
 
 ```
