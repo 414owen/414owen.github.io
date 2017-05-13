@@ -120,6 +120,8 @@ code will therefore have to take the form of:
 eval(/* abstracted import */);
 ```
 
+### The Solution
+
 How about we just iterate over the keys keys within the eval?
 
 ```
@@ -146,6 +148,8 @@ curious developer.
 
 Remember that we're generating a string representing code to run, so we're
 passing in the name of the object in the current scope, not the object itself.
+
+### Working Example
 
 Let's test all this with a simple example:
 
