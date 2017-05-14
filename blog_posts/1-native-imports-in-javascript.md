@@ -7,13 +7,13 @@ this post, we'll see if we can get some JavaScript foo going that defines some
 variables in a local scope, then makes them available in some other local
 scope, and no other scope.
 
-### We will need
+### We Will Need
 
 * An open mind
 * Courage in the face of [eval](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval)
 * A lot of foo
 
-### Background and justification
+### Background and Justification
 
 Well, I write some nifty web apps. Sometimes I don't feel like using bundlers
 and transpilers. Sometimes I like to fling some vanilla around. One of my
@@ -26,7 +26,7 @@ does is it sets `window.Nutmeg` to an object that contains these functions.
 Pretty standard, it means that we can call `Nutmeg.div("Hello, World!")`
 anywhere. Cool story, but I want my code to be smaller than that.
 
-### An improvement
+### An Improvement
 
 One option is just to alias Nutmeg. For example:
 
@@ -41,7 +41,7 @@ Okay, now all the functions are prefaced with `N.`. This is a lot better, but
 two characters is a lot. You could be using the seconds racked up typing all of
 your `N.`s to do useful things, like making banana smoothies, for example.
 
-### A bad option
+### A Bad Option
 
 One way to transfer the variables to this scope is just to create copies of the
 variables manually. This might be fine for some libraries, but Nutmeg has
