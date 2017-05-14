@@ -7,6 +7,13 @@ this post, we'll see if we can get some JavaScript foo going that defines some
 variables in a local scope, then makes them available in some other local
 scope, and no other scope.
 
+### Disclaimer
+
+The code detailed in this post is an acquired taste. It involves exploration
+for the sake of proving something can be done, rather than because we're
+looking for normalcy and stability. This is the kind of code I write to
+amuse myself when writing my own projects, not when I'm working on a team.
+
 ### Prerequisites
 
 * An open mind
