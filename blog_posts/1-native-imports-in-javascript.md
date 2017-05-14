@@ -173,7 +173,7 @@ function testImport() {
 	eval(local("obj"));
 
 	console.log(a, b);
-	// Woah! a and b were all declared in the scope of this function
+	// Woah! a and b were declared in the scope of this function
 }
 
 testImport();
