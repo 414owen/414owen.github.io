@@ -7,7 +7,7 @@ this post, we'll see if we can get some JavaScript foo going that defines some
 variables in a local scope, then makes them available in some other local
 scope, and no other scope.
 
-### We Will Need
+### Prerequisites
 
 * An open mind
 * Courage in the face of [eval](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval)
@@ -107,11 +107,11 @@ function() {
 }
 ```
 
-Okay, here generating a new variable declaration from the key in the Nutmeg
-object, and setting it equal to the value in the Nutmeg object. For a while,
-the Nutmeg readme suggested importing like this. People don't really like
-pasting in three lines of code to import something nicely though. Luckily, we
-can abstract some of this out.
+Okay, here we're generating a new variable declaration for every key in the
+Nutmeg object, and setting it equal to the value in the Nutmeg object. For a
+while, the Nutmeg readme suggested importing like this. People don't really
+like pasting in three lines of code to import something nicely though.
+Luckily, we can abstract some of this out.
 
 Unfortunately, we need the eval in this scope, so the import works. Our new
 code will therefore have to take the form of:
@@ -122,7 +122,7 @@ eval(/* abstracted import */);
 
 ### The Solution
 
-How about we just iterate over the keys keys within the eval?
+How about we just iterate over the keys within the eval?
 
 ```
 // Generate import code
