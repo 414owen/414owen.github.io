@@ -24,14 +24,15 @@ amuse myself when writing my own projects, not when I'm working on a team.
 
 Well, I write some nifty web apps. Sometimes I don't feel like using bundlers
 and transpilers. Sometimes I like to fling some vanilla around. One of my
-projects was called [Nutmeg](https://github.com/414owen/Nutmeg-Core), and it's
-designed for people who don't want to upload a new bundle every time they want
-to update their website. People who want as many scripts to be cached as
-possible people who want super-tiny syntax. Nutmeg defines a bunch of
-functions for creating elements, such as `div()`, `ul()`, and `span()`. What it
-does is it sets `window.Nutmeg` to an object that contains these functions.
-Pretty standard, it means that we can call `Nutmeg.div("Hello, World!")`
-anywhere. Cool story, but I want my code to be smaller than that.
+projects was called [Nutmeg](https://github.com/414owen/Nutmeg-Core). It's a
+1:1 mapping of HTML syntax to javascript functions, and it's designed for
+people who don't want to upload a new bundle every time they update their
+website, people who want as many scripts to be cached as possible, people who
+want super-tiny syntax. Nutmeg defines a bunch of functions for creating
+elements, such as `div()`, `ul()`, and `span()`. What it does is it sets
+`window.Nutmeg` to an object that contains these functions.  Pretty standard,
+it means that we can call `Nutmeg.div("Hello, World!")` anywhere.  Cool story,
+but I want my code to be smaller than that.
 
 ### An Improvement
 
