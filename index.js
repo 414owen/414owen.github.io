@@ -451,7 +451,10 @@ window.onload = function() {
 							entry[3] = Nutmeg.md(this.responseText, {
 								pre: code,
 								image: function(src, caption) {
-									return img.src(im(src))
+									return a.href(src)(
+										img.src(im(src)).style(
+											{maxWidth: "100%"}
+										));
 								}
 							});
 							page.clear()(entry[3]);
