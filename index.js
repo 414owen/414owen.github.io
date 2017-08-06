@@ -400,7 +400,7 @@ window.onload = function() {
 		],
 		[
 			"How to choose a programming language",
-			"It's important",
+			"A step up from flipping a coin",
 			"Multi-Language"
 		]
 	];
