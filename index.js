@@ -165,9 +165,19 @@ window.onload = function() {
 
 	function rev(a) {return a.split("").reverse().join("");}
 	function im(a) {
-		return (/^http/.test(a) ? a : (imageBase +
-			rev(Common.ldash(a)).toLowerCase() +
-			(/\.svg$/.test(a) ? "" : ".svg")));
+		function normalize(b) {
+			return rev(Common.ldash(a.replace(/\.svg$/)).toLowerCase());
+		}
+		var svg = /\.svg$/;
+		var ending = /\...?.?$/;
+		return (/^http/.test(a) ? a : 
+			(ending.test(a) ? 
+				((svg.test(a) ?
+					imageBase :
+					"/images/bitmap/") +
+					normalize(a.replace(ending, "")) +
+					ending.exec(a)[0]) :
+			imageBase + normalize(a) + ".svg"));
 	}
 	var navItems = ["Home", "Projects", "Blog", "About Me", "Contact"];
 
