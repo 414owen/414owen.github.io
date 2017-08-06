@@ -49,4 +49,4 @@ beautiful chassis for our hardware.
 
 ### The end result:
 
-![That's one classy chassis!](hackathon-cereal-box)
+![That's one classy chassis!](hackathon-cereal-box.jpg)
