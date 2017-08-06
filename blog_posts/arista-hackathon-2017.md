@@ -9,7 +9,7 @@ hackathon was an internal one at Arista. It happened over all of our offices,
 but separately, so our project wasn't compared to projects created in
 Vancouver, for example.
 
-The hackathon was a 24-hour one, 3pm on Thursday to 3pm in Friday, with voting
+The hackathon was a 24-hour one, 3pm on Thursday to 3pm on Friday, with voting
 and prizes afterwards. There were a tonne of games and events organised, as
 well as lots of food to keep us happy and relatively sane. There was a music
 room, two board game rooms, pool / foosball tournaments, an overnight game of
