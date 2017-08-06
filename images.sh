@@ -13,7 +13,7 @@ for i in images/*.*; do
 		fi
 	else
 		out="images/bitmap/${outname}"
-		echo "Symlinking ${base}.${ending} -> ${outname}"
-		ln -s "${i}" "${out}"
+		echo "Moving ${base}.${ending} -> ${outname}"
+		mv "${i}" "${out}"
 	fi
 done
