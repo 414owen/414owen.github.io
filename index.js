@@ -451,7 +451,7 @@ window.onload = function() {
 							entry[3] = Nutmeg.md(this.responseText, {
 								pre: code,
 								image: function(src, caption) {
-									return a.href(src)(
+									return a.href(im(src))(
 										img.src(im(src)).style(
 											{maxWidth: "100%"}
 										));
