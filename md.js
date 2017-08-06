@@ -91,7 +91,7 @@
 					var h = baseh;
 					var arr = toc;
 					while (h++ < hh) {
-						arr = arr[length - 1].children;
+						arr = arr[arr.length - 1].children;
 					}
 					arr.push({name: val[0][0], el: els[els.length - 1], children: []});
 					headings[Common.ldash(val[0][0])] = els[els.length - 1];
