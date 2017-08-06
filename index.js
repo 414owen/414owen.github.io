@@ -440,7 +440,7 @@ window.onload = function() {
 						function reqListener () {
 							entry[3] = Nutmeg.md(this.responseText, {
 								pre: code,
-								image: function(caption, src) {
+								image: function(src, caption) {
 									return img.src(im(src))
 								}
 							});

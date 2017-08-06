@@ -18,7 +18,7 @@
 		link: link,
 		href: a,
 		p: ul,
-		image: function(caption, url) {
+		image: function(url, caption) {
 			return img.src(url);
 		}
 	};
