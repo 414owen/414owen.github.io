@@ -17,7 +17,10 @@
 		pre: pre,
 		link: link,
 		href: a,
-		p: ul
+		p: ul,
+		image: function(url, caption) {
+			return a.href(url)(img.src(url));
+		}
 	};
 	for (var i = 0; i < 5; i++) {
 		defMap["h" + i] = Nutmeg["h" + i];
@@ -53,16 +56,18 @@
 				if (i % 2 === 0) {
 					var res = [];
 					var match;
-					while ((match = /\[(.+?)\]\(([^\s]+?)\)/g.exec(a)) != null) {
+					while ((match = /(!?)\[(.+?)\]\(([^\s]+?)\)/g.exec(a)) != null) {
 						var link;
-						if (match[2][0] === "#") {
+						if (match[1] === "!") {
+							link = create("image").bind(null, match[3]);
+						} else if (match[3][0] === "#") {
 							link = create("text").onclick(Common.goto.bind(null, headings[Common.ldash(match[1])]));
-						} else if (/^https?:\/\/.*\..*/.test(match[2])) {
-							link = create("href").href(match[2]);
+						} else if (/^https?:\/\/.*\..*/.test(match[3])) {
+							link = create("href").href(match[3]);
 						} else {
-							link = create("link")(match[2]);
+							link = create("link")(match[3]);
 						}
-						res.push(a.slice(0, match.index), link(match[1]).style(style("link")));
+						res.push(a.slice(0, match.index), link(match[2]).style(style("link")));
 						a = a.slice(match.index + match[0].length);
 					}
 					res.push(a);

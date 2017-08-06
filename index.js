@@ -164,7 +164,21 @@ window.onload = function() {
 	};
 
 	function rev(a) {return a.split("").reverse().join("");}
-	function im(a) {return rev(Common.ldash(a)).toLowerCase();}
+	function im(a) {
+		function normalize(b) {
+			return rev(Common.ldash(b).toLowerCase());
+		}
+		var svg = /\.svg$/;
+		var ending = /\...?.?$/;
+		return (/^http/.test(a) ? a : 
+			(ending.test(a) ? 
+				((svg.test(a) ?
+					imageBase :
+					"/images/bitmap/") +
+					normalize(a.replace(ending, "")) +
+					ending.exec(a)[0]) :
+			imageBase + normalize(a) + ".svg"));
+	}
 	var navItems = ["Home", "Projects", "Blog", "About Me", "Contact"];
 
 	function getNav(current) {
@@ -288,7 +302,7 @@ window.onload = function() {
 						div.style({display: "flex"})(
 							div.style({width: "8rem"})(
 								img.style(style.projimg).src(
-									imageBase + im(item.icon) + ".svg"
+									im(item.icon)
 								)
 							),
 							div.style(style.center)(
@@ -389,6 +403,16 @@ window.onload = function() {
 
 	var blogEntries = [
 		[
+			"Arista Hackathon 2017",
+			"Let's mod a pool table",
+			"Pool"
+		],
+		[
+			"How to choose a programming language",
+			"A step up from flipping a coin",
+			"Multi-Language"
+		],
+		[
 			"Currying in JavaScript",
 			"Implementing an abstraction every language should have",
 			"JavaScript"
@@ -397,11 +421,6 @@ window.onload = function() {
 			"Native imports in JavaScript",
 			"Using eval to dynamically bind local variables for great convenience gains",
 			"JavaScript"
-		],
-		[
-			"How to choose a programming language",
-			"It's important",
-			"Multi-language"
 		]
 	];
 
@@ -411,7 +430,7 @@ window.onload = function() {
 				title: b[0],
 				description: b[1],
 				link: "blog/" + i + "/" + Common.ldash(b[0]),
-				icon: Common.ldash(b[2])
+				icon: b[2]
 			};
 		}), false, true, "Blog");
 	}
@@ -424,22 +443,33 @@ window.onload = function() {
 				padding: "0 20px"
 			})(
 				(entry ? [h1(entry[0]),
-				h2(entry[1]),
-				(function() {
-					if (entry[3]) {return div(entry[3]);}
-					var page = div(h3("Loading..."));
-					function reqListener () {
-						entry[3] = Nutmeg.md(this.responseText, {pre: code});
-						page.clear()(entry[3]);
-					}
-					var oReq = new XMLHttpRequest();
-					oReq.addEventListener("load", reqListener);
-					oReq.open("GET", "/blog_posts/" + params.id + "-" + Common.ldash(entry[0]) + ".md");
-					oReq.send();
-					return page;
-				})(),
-				div.style({height: "5rem"})] : h1("Blog post not found :("))
+					h2(entry[1]),
+					(function() {
+						if (entry[3]) {return div(entry[3]);}
+						var page = div(h3("Loading..."));
+						function reqListener () {
+							entry[3] = Nutmeg.md(this.responseText, {
+								pre: code,
+								image: function(src, caption) {
+									return div(a.href(im(src))(
+										img.src(im(src)).style(
+											{maxWidth: "100%"}
+										)),
+										div(caption).style({cursor: "initial"})
+									).style({textAlign: "center",
+									margin: "1rem 0"});
+								}
+							});
+							page.clear()(entry[3]);
+						}
+						var oReq = new XMLHttpRequest();
+						oReq.addEventListener("load", reqListener);
+						oReq.open("GET", "/blog_posts/" + Common.ldash(entry[0]) + ".md");
+						oReq.send();
+						return page;
+					})()] : h1("Blog post not found :("))
 			),
+			div.style({height: "5rem"}),
 			getNav("Blog")
 		];
 	}
