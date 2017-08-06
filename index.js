@@ -166,7 +166,7 @@ window.onload = function() {
 	function rev(a) {return a.split("").reverse().join("");}
 	function im(a) {
 		function normalize(b) {
-			return rev(Common.ldash(a.replace(/\.svg$/)).toLowerCase());
+			return rev(Common.ldash(b).toLowerCase());
 		}
 		var svg = /\.svg$/;
 		var ending = /\...?.?$/;
