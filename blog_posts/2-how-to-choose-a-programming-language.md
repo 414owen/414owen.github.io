@@ -1,8 +1,6 @@
 <TOC 3>
 
-### How to choose a language
-
-#### For a hackathon
+### For a hackathon
 
 The language in which you can get it done in the fastest. Screw best practices,
 get you some loosely typed, garbage-collected action. Heck,  be a script kiddie

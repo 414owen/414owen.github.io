@@ -401,7 +401,7 @@ window.onload = function() {
 		[
 			"How to choose a programming language",
 			"It's important",
-			"Multi-language"
+			"Multi-Language"
 		]
 	];
 
