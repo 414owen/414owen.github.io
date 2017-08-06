@@ -448,7 +448,7 @@ window.onload = function() {
 						}
 						var oReq = new XMLHttpRequest();
 						oReq.addEventListener("load", reqListener);
-						oReq.open("GET", "/blog_posts/" + params.id + "-" + Common.ldash(entry[0]) + ".md");
+						oReq.open("GET", "/blog_posts/" + Common.ldash(entry[0]) + ".md");
 						oReq.send();
 						return page;
 					})()] : h1("Blog post not found :("))
