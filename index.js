@@ -437,9 +437,9 @@ window.onload = function() {
 					oReq.open("GET", "/blog_posts/" + params.id + "-" + Common.ldash(entry[0]) + ".md");
 					oReq.send();
 					return page;
-				})(),
-				div.style({height: "5rem"})] : h1("Blog post not found :("))
+				})()] : h1("Blog post not found :("))
 			),
+			div.style({height: "5rem"}),
 			getNav("Blog")
 		];
 	}
