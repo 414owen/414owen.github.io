@@ -54,7 +54,7 @@ such shenanigans, I grabbed a miniature box of Crunchy Nut cereal from the
 Micro-Kitchen, ate the contents for breakfast, and used the box to create a
 beautiful chassis for our hardware.
 
-### The end result:
+### The end result
 
 ![That's one classy chassis!](hackathon-cereal-box.jpg)
 
