@@ -393,6 +393,11 @@ window.onload = function() {
 
 	var blogEntries = [
 		[
+			"Arista Hackathon 2017",
+			"Let's mod a pool table",
+			"Pool"
+		],
+		[
 			"How to choose a programming language",
 			"A step up from flipping a coin",
 			"Multi-Language"
