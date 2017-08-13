@@ -65,6 +65,6 @@ beautiful chassis for our hardware.
 ### Did we win a thing?
 
 Why yes, having focused entirely on having fun, and making the silliest
-presentation we could, we won two out of the three categories. Did we deserve
+presentation we could, we won two out of the five categories. Did we deserve
 to win? Heck no, but people tend to remember comedic presentations, so out of
 the sixteen projects showcased, I guess ours stuck out.
