@@ -65,7 +65,6 @@ beautiful chassis for our hardware.
 ### Did we win a thing?
 
 Why yes, having focused entirely on having fun, and making the silliest
-presentation we could, we won the 'Biggest Time Saver' category (there were
-five categories). This was after we'd given a presentation with the words "To
-be honest, the most time this will ever save you is around thirty seconds per
-day, because the pool room is never too far away".
+presentation we could, we won two out of the three categories. Did we deserve
+to win? Heck no, but people tend to remember comedic presentations, so out of
+the sixteen projects showcased, I guess ours stuck out.
