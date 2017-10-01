@@ -1,27 +1,168 @@
-<!--
-    Copyright 2016 Owen Shepherd
-    This website is about, and written in, Nutmeg, 
-	a tiny client-side website generation library I wrote.
-    Nutmeg lives here: https://github.com/414owen/Nutmeg
--->
-
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>Owen Shepherd</title>
-		<meta charset="UTF-8"> 
-		<meta name=viewport content="width=device-width, initial-scale=0.6">
-		<link rel="icon" href="https://owen.cafe/favicon.ico" type="image/x-icon">
-		<link href="https://fonts.googleapis.com/css?family=Nova+Mono|Raleway" rel="stylesheet"> 
-    </head>
-    <body>
-        <p>
-            This page requires javascript to be enabled, as it uses a
-            website generator I wrote, called <a href="https://github.com/414owen/Nutmeg-Core">Nutmeg</a>.
-        </p>
-        <script src="https://owen.cafe/nutmeg/nutmeg.js"></script>
-        <script src="https://owen.cafe/nutmeg/nutmeg-router.js"></script>
-        <script src="slides.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Owen Shepherd">
+  <title>DSLs in JS</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/reveal.js/css/theme/blood.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal.js/css/print/pdf.css' : '/reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="/reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">DSLs in JS</h1>
+  <p class="author">Owen Shepherd</p>
+  <p class="date">1st Sept. 2017</p>
+</section>
+
+<section><section id="frmwrks" class="titleslide slide level1"><h1>Frmwrks</h1></section><section id="whats-your-dream-web-framework" class="slide level2">
+<h2>What's your dream web framework?</h2>
+</section><section id="desired-features" class="slide level2">
+<h2>Desired Features</h2>
+<ul>
+<li>No compilation</li>
+<li>No learning curve</li>
+<li>Good abstractions</li>
+</ul>
+</section><section id="how" class="slide level2">
+<h2>How?</h2>
+<ul>
+<li>Pure JavaScript</li>
+<li>1:1 mapping of HTML to JS</li>
+<li>Functions -&gt; Elements</li>
+</ul>
+</section></section>
+<section><section id="edsl" class="titleslide slide level1"><h1>EDSL? 👀</h1></section><section id="html---js-mapping" class="slide level2">
+<h2>HTML -&gt; JS Mapping</h2>
+<ul>
+<li>tags -&gt; functions</li>
+<li>attributes -&gt; dot modifiers</li>
+<li>styling -&gt; js objects</li>
+</ul>
+</section></section>
+<section><section id="nutmeg" class="titleslide slide level1"><h1>Nutmeg</h1></section><section id="nutmeg-1" class="slide level2">
+<h2>Nutmeg</h2>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="at">body</span>(                       <span class="co">// function body()</span>
+    <span class="at">div</span>(                    <span class="co">// function div()</span>
+        <span class="at">h1</span>(<span class="st">&#39;Nutmeg&#39;</span>)<span class="op">,</span>       <span class="co">// function h1()</span>
+        <span class="st">&#39;Hello World&#39;</span><span class="op">,</span>      <span class="co">// strings is a paremeter of div()</span>
+        <span class="at">div</span>(
+            <span class="at">br</span>()<span class="op">,</span>
+            <span class="at">a</span>(<span class="st">&#39;Take me to the Nutmeg repo&#39;</span>)
+                .<span class="at">href</span>(<span class="st">&#39;https://github.com/414owen/Nutmeg&#39;</span>)
+        )
+    )
+)</code></pre></div>
+</section><section id="features" class="slide level2">
+<h2>Features</h2>
+<ul>
+<li>Nutmeg elements as functions
+<ul>
+<li>Take multiple other elements / arrays</li>
+</ul></li>
+<li>Styling
+<ul>
+<li>Style inheritance</li>
+<li>Pseudo-elements</li>
+</ul></li>
+<li>Navigation
+<ul>
+<li>Internal hash/normal URL</li>
+</ul></li>
+<li>Markdown -&gt; Nutmeg</li>
+</ul>
+</section></section>
+<section><section id="demo-time" class="titleslide slide level1"><h1>Demo Time</h1></section><section id="demo-time-1" class="slide level2">
+<h2>Demo Time</h2>
+<p><a href="https://owen.cafe/nutmeg/demo/" class="uri">https://owen.cafe/nutmeg/demo/</a></p>
+</section></section>
+<section><section id="wrapping-up" class="titleslide slide level1"><h1>Wrapping Up</h1></section><section id="conclusions" class="slide level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Don't write a language that compiles to JavaScript</li>
+<li>JavaScript is dynamic enough for EDSLs to be defined in</li>
+<li>Functions are all you need to abstract the DOM</li>
+</ul>
+</section></section>
+<section><section id="the-end" class="titleslide slide level1"><h1>The End</h1></section><section id="the-end-1" class="slide level2">
+<h2>The End</h2>
+<p>Contact me through <a href="https://owen.cafe" class="uri">https://owen.cafe</a></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/lib/js/head.min.js"></script>
+  <script src="/reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '/reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: '/reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
     </body>
 </html>
