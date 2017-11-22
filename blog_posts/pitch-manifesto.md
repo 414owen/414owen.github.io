@@ -1,5 +1,3 @@
-<TOC 3>
-
 The following is a speech I gave to a startup incubator in my university for a
 pitching competition. On the train in I wrote the following manifesto.
 

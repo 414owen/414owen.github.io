@@ -403,6 +403,11 @@ window.onload = function() {
 
 	var blogEntries = [
 		[
+			"Pitch Manifesto",
+			"If startup pitches were taken a little less seriously",
+			"Lightbulb"
+		],
+		[
 			"Arista Hackathon 2017",
 			"Let's mod a pool table",
 			"Pool"

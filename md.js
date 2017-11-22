@@ -20,7 +20,8 @@
 		p: ul,
 		image: function(url, caption) {
 			return a.href(url)(img.src(url));
-		}
+		},
+		hr: hr
 	};
 	for (var i = 0; i < 5; i++) {
 		defMap["h" + i] = Nutmeg["h" + i];
