@@ -30,7 +30,7 @@
 		styleMap = styleMap || {
 			all: {margin: "1rem 0"},
 			link: {
-				color: "#000", 
+				color: "#000",
 				textDecoration: "underline",
 				cursor: "pointer"
 			}
@@ -106,6 +106,8 @@
 			} else if (newBlock) {
 				if (/^```/.test(line)) {
 					type = "pre";
+				} else if (/^----*\s*$/.test(line)) {
+					type = "hr";
 				} else if (/^#+/.test(line)) {
 					indent = line.search(/[^# ]/);
 					var hashes = line.search(/[^#]/);
@@ -133,7 +135,7 @@
 			} else {
 				if (type === "pre") {
 					if (/^```/.test(line)) {
-						newBlock = true; 
+						newBlock = true;
 						els.push(create(type)(val.join("\n")).style(style("all")));
 						val = [];
 					}
