@@ -7,3 +7,6 @@ deploy:
   acl: ''
   on:
     repo: 414owen/personal-site
+
+script:
+  - echo "hello"
